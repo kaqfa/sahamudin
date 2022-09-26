@@ -1,25 +1,18 @@
 import streamlit as st
 import pandas as pd
 
-@st.cache
-def load_company():
-    companies = pd.read_csv('./files/company_info-600-700.csv')
-    return companies
+
 
 def main():
-    st.title("Tampilan Saham Biasanya")
-    st.sidebar.title("Tampilan Saham")
+    st.set_page_config(page_title="Sahamudin | solusi saham anda", layout='wide' )
+    st.markdown("""# Sahamudin
+Kami adalah solusi untuk pencarian saham terbaik yang bisa anda dapatkan.
 
-    companies = load_company()
-    sector = st.selectbox('Sektor', companies['sector'].unique())
-    cities = st.multiselect('Kota Persh', companies['city'].unique())
+## Bagaimana Kami Mencari Saham Terbaik?
+Menggunakan data terbaru dan algoritma terbaik, kami bisa mendapatkan saham apa saja yang kami mau. Begitu juga anda.
 
-    if sector :
-        companies = companies[companies['sector'] == sector]
-    if cities :
-        companies = companies[companies['city'].isin(cities)]
-        
-    st.dataframe(data=companies[['symbol', 'website', 'city', 'sector', 'fullTimeEmployees']], use_container_width=True)
+Mari bergabung bersama kami, di Sini.
+    """)
 
 if __name__ == '__main__':
     main()
