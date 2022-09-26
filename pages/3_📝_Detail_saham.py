@@ -4,7 +4,8 @@ from yahooquery import Ticker
 
 txt = """ ### Perusahaan {}
 
-- Sector & Industry: {} || {}
+- Nama Panjang: {}
+- Sektor & Industri: {} || {}
 - Alamat: {}
 - Kota: {}
 - Website: {}
@@ -23,8 +24,9 @@ Inputkan kode saham yang ingin anda cari informasinya
         df_emiten = pd.read_csv('./files/data_emiten.csv')
         emiten = df_emiten[df_emiten['symbol'] == kode]
         result = saham.asset_profile[kode.upper()]
-        # st.json(result)
-        st.markdown(txt.format(emiten.shortName.values[0], result['sector'], result['industry'], result['address1'], result['city'], result['website']))
+        st.markdown(txt.format(emiten.shortName.values[0], emiten.longName.values[0], 
+                    result['sector'], result['industry'], result['address1'], 
+                    result['city'], result['website']))
 
         officers = pd.DataFrame(result['companyOfficers']).fillna(0).astype({'age':'int'})
         st.table(officers[['name', 'age', 'title']])
